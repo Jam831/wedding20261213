@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>品萱 & 惇理 婚禮邀請函 | PIN & JAM Wedding Invitation</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Noto+Serif+TC:wght@300;400;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        morandi: {
+                            rose: '#E0C8C0',
+                            warm: '#C9A4A0',
+                            deep: '#9E7B74',
+                            text: '#5A4643',
+                            dark: '#3A2C2A',
+                            bg: '#FDFBF7',
+                            cardBg: '#FAF5F3',
+                            accent: '#D4B2A7'
+                        }
+                    },
+                    fontFamily: {
+                        cormorant: ['"Cormorant Garamond"', 'serif'],
+                        serif: ['ChenYuluoyan', '"Noto Serif TC"', 'serif'],
+                        chenyuluoyan: ['ChenYuluoyan', '"Noto Serif TC"', 'serif'],
+                    },
+                    boxShadow: {
+                        'soft-glow': '0 10px 30px -5px rgba(201, 164, 160, 0.25)',
+                        'card-depth': '0 20px 40px -15px rgba(90, 70, 67, 0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @font-face {
+            font-family: 'ChenYuluoyan';
+            src: url('https://cdn.jsdelivr.net/gh/Chenyu-otf/chenyuluoyan_thin@main/ChenYuluoyan-2.0-Thin.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        body {
+            font-family: 'ChenYuluoyan', 'Noto Serif TC', serif;
+            background-color: #FDFBF7;
+            color: #5A4643;
+            overflow-x: hidden;
+        }
+
+        .font-en {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-nav {
+            background: rgba(253, 251, 247, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(224, 200, 192, 0.4);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 12px 35px -10px rgba(201, 164, 160, 0.22);
+        }
+
+        /* White Glow Countdown Cards */
+        .glow-card {
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: 0 8px 25px rgba(201, 164, 160, 0.2), 0 0 15px rgba(255, 255, 255, 0.8) inset;
+            border: 1px solid rgba(255, 255, 255, 0.95);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glow-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(201, 164, 160, 0.3), 0 0 20px rgba(255, 255, 255, 1) inset;
+        }
+
+        /* Hero Overlay Gradient */
+        .hero-overlay {
+            background: linear-gradient(180deg, rgba(58, 44, 42, 0.35) 0%, rgba(58, 44, 42, 0.1) 50%, rgba(253, 251, 247, 0.95) 92%, #FDFBF7 100%);
+        }
+
+        /* Accordion transition styles */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .accordion-content.active {
+            max-height: 500px;
+        }
+
+        /* Custom Input Styles */
+        .custom-input {
+            background-color: #FFFFFF;
+            border: 1px solid #E0C8C0;
+            transition: all 0.3s ease;
+        }
+
+        .custom-input:focus {
+            outline: none;
+            border-color: #C9A4A0;
+            box-shadow: 0 0 0 3px rgba(201, 164, 160, 0.25);
+            background-color: #FFFFFF;
+        }
+
+        .no-break {
+            white-space: nowrap !important;
+            display: inline-block;
+        }
+
+        .font-chenyuluoyan {
+            font-family: 'ChenYuluoyan', 'Zen Maru Gothic', 'Noto Serif TC', serif;
+        }
+    </style>
+
+    <script>
+        let isFormSubmitting = false;
+
+        // Custom Toast Notification replacing alert()
+        function showToast(msg) {
+            let toast = document.getElementById('toast-msg');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'toast-msg';
+                toast.className = 'fixed top-20 left-1/2 -translate-x-1/2 bg-morandi-dark text-white text-sm px-6 py-3 rounded-full shadow-lg z-50 transition-opacity duration-300 opacity-0 pointer-events-none';
+                document.body.appendChild(toast);
+            }
+            toast.innerText = msg;
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 3000);
+        }
+
+        // 1. Countdown Timer Logic (Target: 2026-12-13 11:00:00)
+        function updateCountdown() {
+            const targetDate = new Date("2026-12-13T11:00:00+08:00").getTime();
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            const dEl = document.getElementById("cd-days");
+            const hEl = document.getElementById("cd-hours");
+            const mEl = document.getElementById("cd-minutes");
+            const sEl = document.getElementById("cd-seconds");
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                if (dEl) dEl.innerText = String(days).padStart(2, '0');
+                if (hEl) hEl.innerText = String(hours).padStart(2, '0');
+                if (mEl) mEl.innerText = String(minutes).padStart(2, '0');
+                if (sEl) sEl.innerText = String(seconds).padStart(2, '0');
+            } else {
+                if (dEl) dEl.innerText = "00";
+                if (hEl) hEl.innerText = "00";
+                if (mEl) mEl.innerText = "00";
+                if (sEl) sEl.innerText = "00";
+            }
+        }
+
+        function toggleAccordion(id, iconId) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(iconId);
+            if (!content) return;
+            
+            const isActive = content.classList.contains('active');
+            
+            document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('[id^="acc-icon-"]').forEach(ic => ic.classList.remove('rotate-180'));
+
+            if (!isActive) {
+                content.classList.add('active');
+                if (icon) icon.classList.add('rotate-180');
+            }
+        }
+
+        function toggleAttendanceFields(value) {
+            const attendingFields = document.getElementById('attending-fields');
+            if (!attendingFields) return;
+
+            const inputs = attendingFields.querySelectorAll('select, input');
+            
+            if (value && (value.includes('當然要參與') || value.includes('見證幸福'))) {
+                attendingFields.classList.remove('hidden');
+                inputs.forEach(input => input.removeAttribute('disabled'));
+            } else {
+                attendingFields.classList.add('hidden');
+                inputs.forEach(input => input.setAttribute('disabled', 'true'));
+            }
+        }
+
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+            const nameInput = document.getElementById('guest_name');
+            const phoneInput = document.getElementById('guest_phone');
+            
+            if (!nameInput || !nameInput.value.trim()) {
+                showToast('請填寫您的姓名！');
+                if (nameInput) nameInput.focus();
+                return false;
+            }
+
+            if (!phoneInput || !phoneInput.value.trim()) {
+                showToast('請填寫您的聯絡電話！');
+                if (phoneInput) phoneInput.focus();
+                return false;
+            }
+
+            isFormSubmitting = true;
+            const submitBtn = document.getElementById('submit-btn');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i><span>提交中 Submitting...</span>`;
+            }
+
+            // Google Form Field Data Mapping
+            const formData = new FormData();
+            formData.append('entry.1256481096', nameInput.value.trim()); // 姓名
+            formData.append('entry.1495227898', phoneInput.value.trim()); // 電話
+            
+            const relationSelect = document.getElementById('guest_relation');
+            if (relationSelect) formData.append('entry.377475400', relationSelect.value); // 與新人的關係
+
+            const attendanceRadio = document.querySelector('input[name="attendance"]:checked');
+            const attendanceVal = attendanceRadio ? attendanceRadio.value : '';
+            if (attendanceVal) formData.append('entry.584130274', attendanceVal); // 是否出席
+
+            if (attendanceVal && (attendanceVal.includes("當然要參與") || attendanceVal.includes("見證幸福"))) {
+                const countSelect = document.getElementById('attendee_count');
+                if (countSelect) formData.append('entry.508274437', countSelect.value); // 人數
+
+                const vegSelect = document.getElementById('vegetarian_count');
+                if (vegSelect) formData.append('entry.841826365', vegSelect.value); // 素食
+
+                const seatSelect = document.getElementById('child_seats');
+                if (seatSelect) formData.append('entry.80363120', seatSelect.value); // 兒童座椅
+
+                const paperInviteSelect = document.getElementById('paper_invite_need');
+                const addrInput = document.getElementById('paper_address');
+                let addrCombined = '';
+                if (paperInviteSelect) {
+                    addrCombined = paperInviteSelect.value;
+                }
+                if (addrInput && addrInput.value.trim()) {
+                    addrCombined += addrCombined ? (' - ' + addrInput.value.trim()) : addrInput.value.trim();
+                }
+                if (addrCombined) formData.append('entry.1795456901', addrCombined); // 紙本喜帖與地址
+            }
+
+            const wishInput = document.getElementById('guest_wish');
+            if (wishInput && wishInput.value.trim()) {
+                formData.append('entry.1992643797', wishInput.value.trim()); // 祝福語
+            }
+
+            const googleFormActionUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdmOigEnk5tJdyrsErmfKA3o7GJe_KWVkK5mmx4-aX6N4U3SA/formResponse';
+
+            try {
+                await fetch(googleFormActionUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formData
+                });
+            } catch (err) {
+                console.error('Form submission error:', err);
+            }
+
+            if (wishInput && wishInput.value.trim()) {
+                addWishToWall(nameInput.value.trim(), wishInput.value.trim());
+            }
+
+            showSuccessModal();
+
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<span>送出出席回函</span><span class="font-en text-xs uppercase opacity-80">(SUBMIT)</span>`;
+            }
+            const form = document.getElementById('weddingForm');
+            if (form) form.reset();
+            toggleAttendanceFields('');
+            isFormSubmitting = false;
+
+            return false;
+        }
+
+        function showSuccessModal() {
+            const modal = document.getElementById('success-modal');
+            const modalCard = document.getElementById('modal-card');
+            if (modal && modalCard) {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modalCard.classList.remove('scale-95');
+                modalCard.classList.add('scale-100');
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('success-modal');
+            const modalCard = document.getElementById('modal-card');
+            if (modal && modalCard) {
+                modalCard.classList.remove('scale-100');
+                modalCard.classList.add('scale-95');
+                modal.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        function addWishToWall(name, text) {
+            const wall = document.getElementById('wishes-container');
+            if (!wall) return;
+            const wishCard = document.createElement('div');
+            wishCard.className = 'glass-card p-5 rounded-2xl border border-white/80 shadow-sm transition-all duration-300 text-left';
+            wishCard.innerHTML = `
+                <div class="flex items-center justify-between mb-2">
+                    <span class="font-medium text-morandi-dark text-sm">${escapeHtml(name)}</span>
+                    <span class="text-xs text-morandi-warm font-en"><i class="fas fa-heart text-morandi-warm/80 mr-1"></i>Just Now</span>
+                </div>
+                <p class="text-xs sm:text-sm text-morandi-text leading-relaxed">${escapeHtml(text)}</p>
+            `;
+            wall.prepend(wishCard);
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/[&<>"']/g, function(m) {
+                return {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;'
+                }[m];
+            });
+        }
+
+        function openImageModal(src, caption) {
+            const lightbox = document.getElementById('lightbox-modal');
+            const img = document.getElementById('lightbox-img');
+            const cap = document.getElementById('lightbox-caption');
+            if (lightbox && img) {
+                img.src = src;
+                if (cap) cap.innerText = caption || '';
+                lightbox.classList.remove('hidden');
+                lightbox.classList.add('flex');
+            }
+        }
+
+        function closeImageModal() {
+            const lightbox = document.getElementById('lightbox-modal');
+            if (lightbox) {
+                lightbox.classList.add('hidden');
+                lightbox.classList.remove('flex');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuBars = document.getElementById('menu-icon-bars');
+            const menuClose = document.getElementById('menu-icon-close');
+
+            if (mobileMenuBtn && mobileMenu && menuBars && menuClose) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    const isOpen = !mobileMenu.classList.contains('hidden');
+                    if (isOpen) {
+                        mobileMenu.classList.add('hidden');
+                        menuBars.classList.remove('hidden');
+                        menuClose.classList.add('hidden');
+                    } else {
+                        mobileMenu.classList.remove('hidden');
+                        menuBars.classList.add('hidden');
+                        menuClose.classList.remove('hidden');
+                    }
+                });
+
+                document.querySelectorAll('.mobile-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                        menuBars.classList.remove('hidden');
+                        menuClose.classList.add('hidden');
+                    });
+                });
+            }
+        });
+    </script>
+</head>
+<body class="relative min-h-screen flex flex-col antialiased">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <!-- Brand Logo / Names -->
+                <a href="#" class="font-en text-lg sm:text-2xl font-light tracking-widest text-morandi-dark hover:text-morandi-deep transition-colors">
+                    PIN &amp; JAM
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8 text-sm tracking-widest text-morandi-dark">
+                    <a href="#about" class="hover:text-morandi-deep transition-colors">關於我們 <span class="font-en text-xs opacity-75">ABOUT</span></a>
+                    <a href="#gallery" class="hover:text-morandi-deep transition-colors">婚紗相簿 <span class="font-en text-xs opacity-75">GALLERY</span></a>
+                    <a href="#details" class="hover:text-morandi-deep transition-colors">婚禮詳情 <span class="font-en text-xs opacity-75">DETAILS</span></a>
+                    <a href="#rsvp" class="px-5 py-2 rounded-full bg-morandi-warm hover:bg-morandi-deep text-white transition-all shadow-sm hover:shadow">出席回函 <span class="font-en text-xs opacity-90">RSVP</span></a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" aria-label="Toggle Navigation Menu" class="md:hidden text-morandi-dark hover:text-morandi-deep focus:outline-none p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path id="menu-icon-bars" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+                        <path id="menu-icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-morandi-bg/95 border-b border-morandi-rose/30 px-4 pt-2 pb-6 space-y-4 shadow-lg text-center">
+            <a href="#about" class="mobile-link block py-2 text-morandi-dark hover:text-morandi-deep font-medium border-b border-morandi-rose/20">關於我們 ABOUT</a>
+            <a href="#gallery" class="mobile-link block py-2 text-morandi-dark hover:text-morandi-deep font-medium border-b border-morandi-rose/20">婚紗相簿 GALLERY</a>
+            <a href="#details" class="mobile-link block py-2 text-morandi-dark hover:text-morandi-deep font-medium border-b border-morandi-rose/20">婚禮詳情 DETAILS</a>
+            <a href="#rsvp" class="mobile-link block py-3 rounded-full bg-morandi-warm text-white font-medium mt-2 shadow-sm">出席回函 RSVP</a>
+        </div>
+    </nav>
+
+    <header class="relative w-full h-screen min-h-[650px] flex items-end justify-center text-center overflow-hidden pb-12 sm:pb-16">
+        <!-- Background Image -->
+        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105 transition-transform duration-10000" style="background-image: url('https://i.postimg.cc/vT8ddV53/LINE-ALBUM-hun-sha-260722-27.jpg');">
+            <!-- Gradient Overlay -->
+            <div class="absolute inset-0 hero-overlay"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 px-4 max-w-3xl mx-auto flex flex-col items-center">
+            <h1 class="text-3xl sm:text-5xl md:text-6xl font-normal text-white tracking-widest drop-shadow-md mb-4 leading-tight font-chenyuluoyan">
+                品萱 <span class="font-en text-morandi-rose text-2xl sm:text-4xl italic">&amp;</span> 惇理
+            </h1>
+            <p class="font-en text-sm sm:text-base tracking-[0.25em] text-white/90 uppercase mb-6 drop-shadow">PIN &amp; JAM</p>
+            
+            <div class="w-12 h-[1px] bg-white/60 mb-6"></div>
+
+            <p class="text-lg sm:text-2xl text-morandi-dark font-light tracking-wider mb-2 bg-white/85 backdrop-blur-md px-6 py-2.5 rounded-full shadow-sm font-chenyuluoyan">
+                今年冬季 我們要結婚了💐
+            </p>
+            <p class="text-xs sm:text-sm text-morandi-text tracking-widest mt-2 font-en bg-white/60 px-4 py-1 rounded-full backdrop-blur-sm">2026 . 12 . 13</p>
+            
+            <a href="#rsvp" class="mt-8 px-8 py-3 bg-morandi-warm/90 hover:bg-morandi-deep text-white text-sm sm:text-base tracking-widest rounded-full shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-105 flex items-center gap-2">
+                <span>前往應答回函</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </a>
+        </div>
+    </header>
+
+    <section class="relative z-20 -mt-16 sm:-mt-20 max-w-4xl mx-auto px-4 w-full">
+        <div class="glass-card rounded-3xl p-6 sm:p-10 shadow-card-depth border border-white/80">
+            <div class="text-center mb-6">
+                <span class="font-en text-xs sm:text-sm tracking-[0.3em] text-morandi-deep uppercase block mb-1">COUNTDOWN TO THE BIG DAY</span>
+                <h2 class="text-xl sm:text-2xl text-morandi-dark font-light tracking-wider">倒數幸福時刻</h2>
+            </div>
+
+            <!-- Countdown Cards Container -->
+            <div class="grid grid-cols-4 gap-2 sm:gap-4 max-w-2xl mx-auto items-center">
+                <div class="glow-card rounded-2xl p-3 sm:p-5 text-center flex flex-col justify-center items-center">
+                    <span id="cd-days" class="font-en text-2xl sm:text-4xl md:text-5xl font-light text-morandi-dark tracking-tight leading-none mb-2">00</span>
+                    <span class="text-[10px] sm:text-xs text-morandi-deep tracking-widest font-en uppercase">DAYS 天</span>
+                </div>
+
+                <div class="glow-card rounded-2xl p-3 sm:p-5 text-center flex flex-col justify-center items-center">
+                    <span id="cd-hours" class="font-en text-2xl sm:text-4xl md:text-5xl font-light text-morandi-dark tracking-tight leading-none mb-2">00</span>
+                    <span class="text-[10px] sm:text-xs text-morandi-deep tracking-widest font-en uppercase">HOURS 時</span>
+                </div>
+
+                <div class="glow-card rounded-2xl p-3 sm:p-5 text-center flex flex-col justify-center items-center">
+                    <span id="cd-minutes" class="font-en text-2xl sm:text-4xl md:text-5xl font-light text-morandi-dark tracking-tight leading-none mb-2">00</span>
+                    <span class="text-[10px] sm:text-xs text-morandi-deep tracking-widest font-en uppercase">MINS 分</span>
+                </div>
+
+                <div class="glow-card rounded-2xl p-3 sm:p-5 text-center flex flex-col justify-center items-center">
+                    <span id="cd-seconds" class="font-en text-2xl sm:text-4xl md:text-5xl font-light text-morandi-warm tracking-tight leading-none mb-2 animate-pulse">00</span>
+                    <span class="text-[10px] sm:text-xs text-morandi-deep tracking-widest font-en uppercase">SECS 秒</span>
+                </div>
+            </div>
+
+            <p class="text-center text-xs sm:text-sm text-morandi-text/80 mt-6 tracking-widest">
+                目標時間：2026年12月13日 (星期日) 11:00 訂婚儀式開場
+            </p>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 px-4 max-w-4xl mx-auto w-full">
+        <div class="text-center mb-10">
+            <span class="font-en text-sm tracking-[0.3em] text-morandi-deep uppercase block mb-2">ABOUT OUR LOVE</span>
+            <h2 class="text-2xl sm:text-3xl font-light text-morandi-dark tracking-widest">我們的故事</h2>
+            <div class="w-10 h-[2px] bg-morandi-rose mx-auto mt-4"></div>
+        </div>
+
+        <div class="glass-card rounded-3xl p-8 sm:p-12 text-center shadow-soft-glow border border-white">
+            <div class="text-2xl sm:text-3xl text-morandi-warm tracking-widest font-light mb-6 font-chenyuluoyan">
+                品萱 <span class="text-morandi-deep">&amp;</span> 惇理
+            </div>
+            
+            <p class="text-base sm:text-lg text-morandi-deep leading-relaxed font-light tracking-wide space-y-4 max-w-2xl mx-auto">
+                從相識到相知，從相守到決定攜手邁向人生的下一個章節。<br>
+                我們在彼此的生命裡，找到了最舒適且溫暖的位置。<br><br>
+                這份愛，是在日常瑣碎中的包容與陪伴，<br>
+                是在無數個平凡日子裡的堅定選擇。<br><br>
+                <span class="text-morandi-warm font-medium">今年冬日，我們誠摯地邀請您，一同見證這份溫柔的幸福。</span>
+            </p>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-8 px-4 max-w-5xl mx-auto w-full">
+        <div class="flex gap-3 sm:gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-morandi-rose/40">
+            <div class="flex-shrink-0 snap-center w-36 sm:w-48 h-52 sm:h-64 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer relative group" onclick="openImageModal('https://i.postimg.cc/TYQZn1gs/3B1A3887.jpg', '甜蜜時刻 01')">
+                <img src="https://i.postimg.cc/TYQZn1gs/3B1A3887.jpg" alt="Photo 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-morandi-dark/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white text-xs font-en tracking-widest border border-white/60 px-3 py-1 rounded-full backdrop-blur-sm">VIEW</span>
+                </div>
+            </div>
+
+            <div class="flex-shrink-0 snap-center w-36 sm:w-48 h-52 sm:h-64 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer relative group" onclick="openImageModal('https://i.postimg.cc/T1NJYzWX/LINE-ALBUM-hun-sha-260722-29.jpg', '甜蜜時刻 02')">
+                <img src="https://i.postimg.cc/T1NJYzWX/LINE-ALBUM-hun-sha-260722-29.jpg" alt="Photo 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-morandi-dark/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white text-xs font-en tracking-widest border border-white/60 px-3 py-1 rounded-full backdrop-blur-sm">VIEW</span>
+                </div>
+            </div>
+
+            <div class="flex-shrink-0 snap-center w-36 sm:w-48 h-52 sm:h-64 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer relative group" onclick="openImageModal('https://i.postimg.cc/xT4VWq8G/LINE-ALBUM-hun-sha-260722-14.jpg', '甜蜜時刻 03')">
+                <img src="https://i.postimg.cc/xT4VWq8G/LINE-ALBUM-hun-sha-260722-14.jpg" alt="Photo 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-morandi-dark/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white text-xs font-en tracking-widest border border-white/60 px-3 py-1 rounded-full backdrop-blur-sm">VIEW</span>
+                </div>
+            </div>
+
+            <div class="flex-shrink-0 snap-center w-36 sm:w-48 h-52 sm:h-64 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer relative group" onclick="openImageModal('https://i.postimg.cc/yx6WrWxs/LINE-ALBUM-hun-sha-260722-4.jpg', '甜蜜時刻 04')">
+                <img src="https://i.postimg.cc/yx6WrWxs/LINE-ALBUM-hun-sha-260722-4.jpg" alt="Photo 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-morandi-dark/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white text-xs font-en tracking-widest border border-white/60 px-3 py-1 rounded-full backdrop-blur-sm">VIEW</span>
+                </div>
+            </div>
+
+            <div class="flex-shrink-0 snap-center w-36 sm:w-48 h-52 sm:h-64 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer relative group" onclick="openImageModal('https://i.postimg.cc/zfnBzTH7/LINE-ALBUM-hun-sha-260722-25.jpg', '甜蜜時刻 05')">
+                <img src="https://i.postimg.cc/zfnBzTH7/LINE-ALBUM-hun-sha-260722-25.jpg" alt="Photo 5" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-morandi-dark/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white text-xs font-en tracking-widest border border-white/60 px-3 py-1 rounded-full backdrop-blur-sm">VIEW</span>
+                </div>
+            </div>
+
+            <div class="flex-shrink-0 snap-center w-36 sm:w-48 h-52 sm:h-64 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer relative group" onclick="openImageModal('https://i.postimg.cc/MT6WzNS1/LINE-ALBUM-hun-sha-260722-10.jpg', '甜蜜時刻 06')">
+                <img src="https://i.postimg.cc/MT6WzNS1/LINE-ALBUM-hun-sha-260722-10.jpg" alt="Photo 6" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-morandi-dark/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white text-xs font-en tracking-widest border border-white/60 px-3 py-1 rounded-full backdrop-blur-sm">VIEW</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="details" class="py-16 px-4 bg-morandi-cardBg/60 border-y border-morandi-rose/30">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="font-en text-sm tracking-[0.3em] text-morandi-deep uppercase block mb-2">WEDDING DETAILS</span>
+                <h2 class="text-2xl sm:text-3xl font-light text-morandi-dark tracking-widest">婚禮詳情</h2>
+                <div class="w-10 h-[2px] bg-morandi-rose mx-auto mt-4"></div>
+            </div>
+
+            <!-- Date and Location Card -->
+            <div class="glass-card rounded-3xl p-6 sm:p-10 mb-8 border border-white shadow-soft-glow">
+                <div class="text-center pb-8 border-b border-morandi-rose/30">
+                    <div class="inline-block px-4 py-1.5 rounded-full bg-morandi-rose/30 text-morandi-dark font-en text-sm tracking-widest mb-3">
+                        DECEMBER 13, 2026
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-normal text-morandi-dark mb-2">
+                        <span class="no-break">台北圓山大飯店</span> <span class="no-break">12樓 崑崙廳</span>
+                    </h3>
+                    <p class="text-sm sm:text-base text-morandi-text flex items-center justify-center gap-1 mt-2">
+                        <svg class="w-4 h-4 text-morandi-warm flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        <span class="no-break">臺北市中山區劍潭里中山北路四段1號</span><span class="no-break">12樓崑崙廳</span>
+                    </p>
+                </div>
+
+                <div class="py-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="p-4 rounded-2xl bg-white/60 border border-morandi-rose/20 flex flex-col items-center hover:bg-white/90 transition-all">
+                        <div class="w-10 h-10 rounded-full bg-morandi-rose/40 text-morandi-dark flex items-center justify-center font-en text-sm font-semibold mb-3">01</div>
+                        <span class="font-en text-xs text-morandi-deep uppercase tracking-wider block mb-1">CEREMONY</span>
+                        <h4 class="text-lg font-medium text-morandi-dark mb-1">訂婚儀式</h4>
+                        <p class="font-en text-lg text-morandi-warm font-semibold">11 : 00</p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-white/60 border border-morandi-rose/20 flex flex-col items-center hover:bg-white/90 transition-all">
+                        <div class="w-10 h-10 rounded-full bg-morandi-rose/40 text-morandi-dark flex items-center justify-center font-en text-sm font-semibold mb-3">02</div>
+                        <span class="font-en text-xs text-morandi-deep uppercase tracking-wider block mb-1">GUEST ARRIVAL</span>
+                        <h4 class="text-lg font-medium text-morandi-dark mb-1">開始入席</h4>
+                        <p class="font-en text-lg text-morandi-warm font-semibold">11 : 30</p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-white/60 border border-morandi-rose/20 flex flex-col items-center hover:bg-white/90 transition-all">
+                        <div class="w-10 h-10 rounded-full bg-morandi-rose/40 text-morandi-dark flex items-center justify-center font-en text-sm font-semibold mb-3">03</div>
+                        <span class="font-en text-xs text-morandi-deep uppercase tracking-wider block mb-1">BANQUET BEGINS</span>
+                        <h4 class="text-lg font-medium text-morandi-dark mb-1">準時開席</h4>
+                        <p class="font-en text-lg text-morandi-warm font-semibold">12 : 00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-3xl p-6 sm:p-8 shadow-card-depth border border-white">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">
+                    <div>
+                        <h3 class="text-xl text-morandi-dark font-medium">交通指引資訊</h3>
+                        <p class="text-xs text-morandi-deep mt-1">TRANSPORTATION INFORMATION</p>
+                    </div>
+                    <a href="https://maps.google.com/?q=台北圓山大飯店" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-morandi-warm/20 text-morandi-deep hover:bg-morandi-warm hover:text-white transition-all text-xs">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span>開啟 Google 地圖</span>
+                    </a>
+                </div>
+
+                <div class="space-y-3">
+                    <!-- Metro & Shuttle -->
+                    <div class="border border-morandi-rose/30 rounded-2xl overflow-hidden bg-white/60">
+                        <button onclick="toggleAccordion('acc-metro', 'acc-icon-1')" class="w-full px-5 py-4 text-left flex items-center justify-between focus:outline-none hover:bg-white/80 transition-colors">
+                            <span class="text-sm font-medium text-morandi-dark flex items-center gap-2">
+                                <i class="fas fa-subway text-morandi-warm"></i>
+                                捷運與飯店免費接駁車
+                            </span>
+                            <i id="acc-icon-1" class="fas fa-chevron-down text-xs text-morandi-deep transition-transform duration-300"></i>
+                        </button>
+                        <div id="acc-metro" class="accordion-content px-5">
+                            <div class="py-3 border-t border-morandi-rose/20 text-xs sm:text-sm text-morandi-text leading-relaxed space-y-2">
+                                <p><strong>1. 捷運圓山站：</strong>1號出口前，可搭乘飯店免費接駁車（約 10-15 分鐘一班）。</p>
+                                <p><strong>2. 捷運劍潭站：</strong>1號出口左側公車站牌旁，亦有飯店免費接駁車接駁。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Driving & Parking -->
+                    <div class="border border-morandi-rose/30 rounded-2xl overflow-hidden bg-white/60">
+                        <button onclick="toggleAccordion('acc-parking', 'acc-icon-2')" class="w-full px-5 py-4 text-left flex items-center justify-between focus:outline-none hover:bg-white/80 transition-colors">
+                            <span class="text-sm font-medium text-morandi-dark flex items-center gap-2">
+                                <i class="fas fa-car text-morandi-warm"></i>
+                                自行開車與停車資訊
+                            </span>
+                            <i id="acc-icon-2" class="fas fa-chevron-down text-xs text-morandi-deep transition-transform duration-300"></i>
+                        </button>
+                        <div id="acc-parking" class="accordion-content px-5">
+                            <div class="py-3 border-t border-morandi-rose/20 text-xs sm:text-sm text-morandi-text leading-relaxed space-y-2">
+                                <p>• 導航設定：台北圓山大飯店（臺北市中山區中山北路四段1號）。</p>
+                                <p>• 飯店備有大型專用停車場，賓客可享免費停車折抵，請於婚宴結束後至禮桌或飯店服務台出示車牌折抵。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bus -->
+                    <div class="border border-morandi-rose/30 rounded-2xl overflow-hidden bg-white/60">
+                        <button onclick="toggleAccordion('acc-bus', 'acc-icon-3')" class="w-full px-5 py-4 text-left flex items-center justify-between focus:outline-none hover:bg-white/80 transition-colors">
+                            <span class="text-sm font-medium text-morandi-dark flex items-center gap-2">
+                                <i class="fas fa-bus text-morandi-warm"></i>
+                                公車路線
+                            </span>
+                            <i id="acc-icon-3" class="fas fa-chevron-down text-xs text-morandi-deep transition-transform duration-300"></i>
+                        </button>
+                        <div id="acc-bus" class="accordion-content px-5">
+                            <div class="py-3 border-t border-morandi-rose/20 text-xs sm:text-sm text-morandi-text leading-relaxed space-y-2">
+                                <p>• 搭乘 208、218、220、260、288、290、304、310、606 等路線至「圓山大飯店」站下車，順著坡道步行即可到達。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="rsvp" class="py-20 px-4 max-w-3xl mx-auto w-full">
+        <div class="text-center mb-10">
+            <span class="font-en text-sm tracking-[0.3em] text-morandi-deep uppercase block mb-2">RSVP FORM</span>
+            <h2 class="text-2xl sm:text-3xl font-light text-morandi-dark tracking-widest">出席回函</h2>
+            <p class="text-xs sm:text-sm text-morandi-deep mt-2">請於 2026年10月01日 前填寫回函，方便我們為您安排席位 ❤️</p>
+            <div class="w-10 h-[2px] bg-morandi-rose mx-auto mt-4"></div>
+        </div>
+
+        <div class="glass-card rounded-3xl p-6 sm:p-10 shadow-card-depth border border-white">
+            <form id="weddingForm" onsubmit="return handleFormSubmit(event)" class="space-y-6">
+                <!-- 姓名 -->
+                <div>
+                    <label for="guest_name" class="block text-sm font-medium text-morandi-dark mb-2">
+                        姓名 <span class="text-red-400">*</span>
+                    </label>
+                    <input type="text" id="guest_name" name="guest_name" required placeholder="請填寫您的真實姓名" class="w-full px-4 py-3 rounded-xl custom-input text-sm text-morandi-dark placeholder-morandi-text/40">
+                </div>
+
+                <!-- 電話 -->
+                <div>
+                    <label for="guest_phone" class="block text-sm font-medium text-morandi-dark mb-2">
+                        聯絡電話 <span class="text-red-400">*</span>
+                    </label>
+                    <input type="tel" id="guest_phone" name="guest_phone" required placeholder="例如：0912345678" class="w-full px-4 py-3 rounded-xl custom-input text-sm text-morandi-dark placeholder-morandi-text/40">
+                </div>
+
+                <!-- 與新人的關係 -->
+                <div>
+                    <label for="guest_relation" class="block text-sm font-medium text-morandi-dark mb-2">
+                        與新人的關係 <span class="text-red-400">*</span>
+                    </label>
+                    <select id="guest_relation" name="guest_relation" required class="w-full px-4 py-3 rounded-xl custom-input text-sm text-morandi-dark">
+                        <option value="新郎家人親友">新郎家人親友</option>
+                        <option value="新郎教學尊長">新郎教學尊長</option>
+                        <option value="新郎朋友">新郎朋友</option>
+                        <option value="新郎同事">新郎同事</option>
+                        <option value="新娘家人親友">新娘家人親友</option>
+                        <option value="新娘教學尊長">新娘教學尊長</option>
+                        <option value="新娘朋友">新娘朋友</option>
+                        <option value="新娘同事">新娘同事</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+
+                <!-- 是否出席 -->
+                <div>
+                    <label class="block text-sm font-medium text-morandi-dark mb-2">
+                        出席意願 <span class="text-red-400">*</span>
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="flex items-center p-3.5 rounded-xl border border-morandi-rose/40 bg-white/70 hover:bg-white cursor-pointer transition-all">
+                            <input type="radio" name="attendance" value="當然要參與見證幸福時刻 ❣️" required onchange="toggleAttendanceFields(this.value)" class="text-morandi-warm focus:ring-morandi-rose">
+                            <span class="ml-2.5 text-sm text-morandi-dark">當然要參與見證幸福時刻 ❣️</span>
+                        </label>
+                        <label class="flex items-center p-3.5 rounded-xl border border-morandi-rose/40 bg-white/70 hover:bg-white cursor-pointer transition-all">
+                            <input type="radio" name="attendance" value="無法出席獻上祝福" required onchange="toggleAttendanceFields(this.value)" class="text-morandi-warm focus:ring-morandi-rose">
+                            <span class="ml-2.5 text-sm text-morandi-dark">無法出席獻上祝福</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 動態展延欄位 (出席者填寫) -->
+                <div id="attending-fields" class="space-y-6 hidden border-t border-morandi-rose/30 pt-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- 人數 -->
+                        <div>
+                            <label for="attendee_count" class="block text-sm font-medium text-morandi-dark mb-2">人數</label>
+                            <select id="attendee_count" name="attendee_count" class="w-full px-4 py-3 rounded-xl custom-input text-sm text-morandi-dark">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+
+                        <!-- 素食 -->
+                        <div>
+                            <label for="vegetarian_count" class="block text-sm font-medium text-morandi-dark mb-2">素食</label>
+                            <select id="vegetarian_count" name="vegetarian_count" class="w-full px-4 py-3 rounded-xl custom-input text-sm text-morandi-dark">
+                                <option value="0(無需素食）">0(無需素食）</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 兒童座椅需求 -->
+                    <div>
+                        <label for="child_seats" class="block text-sm font-medium text-morandi-dark mb-2">兒童座椅需求</label>
+                        <select id="child_seats" name="child_seats" class="w-full px-4 py-3 rounded-xl custom-input text-sm text-morandi-dark">
+                            <option value="0（無需兒童座椅）">0（無需兒童座椅）</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+
+                    <!-- 紙本喜帖需求 -->
+                    <div>
+                        <label for="paper_invite_need" class="block text-sm font-medium text-morandi-dark mb-2">紙本喜帖需求</label>
+                        <select id="paper_invite_need" name="paper_invite_need" class="w-full px-4 py-3 rounded-xl custom-input text-sm text-morandi-dark">
+                            <option value="不需要（僅此份線上邀請卡即可）">不需要（僅此份線上邀請卡即可）</option>
+                            <option value="需要紙本喜帖">需要紙本喜帖</option>
+                        </select>
+                    </div>
+
+                    <!-- 喜帖郵寄地址 -->
+                    <div>
+                        <label for="paper_address" class="block text-sm font-medium text-morandi-dark mb-2">
+                            喜帖郵寄地址
+                        </label>
+                        <input type="text" id="paper_address" name="paper_address" placeholder="如需要紙本喜帖 請提供收件資料(郵遞區號地址)" class="w-full px-4 py-3 rounded-xl custom-input text-sm text-morandi-dark placeholder-morandi-text/40">
+                    </div>
+                </div>
+
+                <!-- 給新人的祝福 -->
+                <div>
+                    <label for="guest_wish" class="block text-sm font-medium text-morandi-dark mb-2">
+                        給新人的祝福 💌
+                    </label>
+                    <textarea id="guest_wish" name="guest_wish" rows="3" placeholder="寫下想對品萱與惇理說的話吧..." class="w-full px-4 py-3 rounded-xl custom-input text-sm text-morandi-dark placeholder-morandi-text/40 resize-none"></textarea>
+                </div>
+
+                <button id="submit-btn" type="submit" class="w-full py-4 rounded-xl bg-morandi-warm hover:bg-morandi-deep text-white font-medium text-base tracking-widest shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                    <span>送出出席回函</span>
+                    <span class="font-en text-xs uppercase opacity-80">(SUBMIT)</span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <section id="wishes-wall" class="py-16 px-4 max-w-4xl mx-auto w-full">
+        <div class="text-center mb-10">
+            <span class="font-en text-sm tracking-[0.3em] text-morandi-deep uppercase block mb-2">WARM WISHES</span>
+            <h2 class="text-2xl sm:text-3xl font-light text-morandi-dark tracking-widest">親友祝福牆</h2>
+            <div class="w-10 h-[2px] bg-morandi-rose mx-auto mt-4"></div>
+        </div>
+
+        <div id="wishes-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="glass-card p-5 rounded-2xl border border-white/80 shadow-sm text-left">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="font-medium text-morandi-dark text-sm">惇理 & 品萱</span>
+                    <span class="text-xs text-morandi-warm font-en"><i class="fas fa-heart text-morandi-warm/80 mr-1"></i>Host</span>
+                </div>
+                <p class="text-xs sm:text-sm text-morandi-text leading-relaxed">期待在 2026/12/13 與大家相見，一同分享我們的喜悅！</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-morandi-dark/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div id="modal-card" class="glass-card rounded-3xl p-8 max-w-md w-full text-center shadow-2xl transform scale-95 transition-transform duration-300 border border-white">
+            <div class="w-16 h-16 rounded-full bg-morandi-rose/30 text-morandi-warm flex items-center justify-center mx-auto mb-4 text-2xl">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h3 class="text-2xl font-medium text-morandi-dark mb-2">已收到您的回函！</h3>
+            <p class="text-sm text-morandi-text leading-relaxed mb-6">
+                非常感謝您的回覆與祝福，我們十分期待在 2026/12/13 與您相見！
+            </p>
+            <button onclick="closeModal()" class="w-full py-3 rounded-full bg-morandi-warm text-white font-medium text-sm tracking-wider hover:bg-morandi-deep transition-colors shadow-sm">
+                確定 (CLOSE)
+            </button>
+        </div>
+    </div>
+
+    <!-- Image Lightbox Modal -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-opacity duration-300" onclick="closeImageModal()">
+        <div class="relative max-w-4xl w-full max-h-[90vh] flex flex-col items-center justify-center" onclick="event.stopPropagation()">
+            <button onclick="closeImageModal()" class="absolute -top-12 right-0 text-white hover:text-morandi-rose text-3xl focus:outline-none p-2">
+                &times;
+            </button>
+            <img id="lightbox-img" src="" alt="Enlarged Photo" class="max-w-full max-h-[80vh] rounded-2xl object-contain shadow-2xl border border-white/20">
+            <p id="lightbox-caption" class="text-white/90 text-sm font-en tracking-widest mt-4 text-center"></p>
+        </div>
+    </div>
+
+    <footer class="py-8 bg-morandi-cardBg text-center border-t border-morandi-rose/30 mt-auto">
+        <p class="font-en text-sm tracking-widest text-morandi-deep uppercase">PIN &amp; JAM WEDDING 2026</p>
+        <p class="text-xs text-morandi-text/60 mt-1">Thank you for sharing our special day.</p>
+    </footer>
+
+</body>
+</html>
